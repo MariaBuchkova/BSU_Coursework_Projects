@@ -21,15 +21,12 @@ int main() {
 
     std::cout << "t1: ";
     PrintTime(t1);
-
-    std::cout << '\n';
     
     std::cout << "t2: ";
     PrintTime(t2);
-    std::cout << '\n';
     
-    std::cout << "t1 < t2: " << std::boolalpha << CompareTimes(t1, t2) << '\n';
-    std::cout << "t2 < t1: " << std::boolalpha << CompareTimes(t2, t1) << '\n';
+    std::cout << "t1 < t2: " << std::boolalpha << (t1 < t2) <<'\n';
+    std::cout << "t2 < t1: " << std::boolalpha << (t2 < t1) << '\n';
 
 
 
