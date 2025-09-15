@@ -188,6 +188,7 @@ int main() {
     - <ins>Create pull request</ins>
         ![pull](images/pull_request.png)
     - <ins> Выбор веток для слияния:</ins>
+        ![pull](images/choose_branches.png)
     - <ins>Merge pull request</ins>
         ![pull](images/merge.png)
     - <ins>Confirm merge</ins>
