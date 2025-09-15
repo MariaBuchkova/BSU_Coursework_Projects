@@ -185,10 +185,10 @@ int main() {
 1. прямо на сайте github в своём репозитории. Для этого вам придётся опубликовать вашу ветку (для этого можно использовать команды выше). После чего сайт вам сайт предложит создать pull request (над репозиторием будет кнопка **Compare & pull request**) и затем слить ветки (не забудьте указать, какие ветки вы будете сливать!):
     - <ins>Compare & pull request</ins>
         ![pull](images/compare_pull.png)
-    - <ins>Create pull request</ins>
-        ![pull](images/pull_request.png)
     - <ins> Выбор веток для слияния:</ins>
         ![pull](images/choose_branches.png)
+    - <ins>Create pull request</ins>
+        ![pull](images/pull_request.png)
     - <ins>Merge pull request</ins>
         ![pull](images/merge.png)
     - <ins>Confirm merge</ins>
