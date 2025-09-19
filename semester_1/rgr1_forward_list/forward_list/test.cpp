@@ -16,35 +16,34 @@ void CheckLists(const ForwardList& actual, const std::forward_list<int32_t>& exp
          ++actual_it, ++expected_it) {
         REQUIRE(*actual_it == *expected_it);
     }
-    bool is_both_end = (actual_it == actual.end()) && (expected_it == expected.cend());
-    REQUIRE(is_both_end);
+    CHECK((actual_it == actual.end() && expected_it == expected.cend()));
 }
 
 
 TEST_CASE("Fool", "[forward_list]") {
-    REQUIRE_FALSE(std::is_same_v<std::forward_list<int32_t>, ForwardList>);
-    REQUIRE_FALSE(std::is_base_of_v<std::forward_list<int32_t>, ForwardList>);
-    REQUIRE_FALSE(std::is_same_v<std::list<int32_t>, ForwardList>);
-    REQUIRE_FALSE(std::is_base_of_v<std::list<int32_t>, ForwardList>);
+    STATIC_REQUIRE_FALSE(std::is_same_v<std::forward_list<int32_t>, ForwardList>);
+    STATIC_REQUIRE_FALSE(std::is_base_of_v<std::forward_list<int32_t>, ForwardList>);
+    STATIC_REQUIRE_FALSE(std::is_same_v<std::list<int32_t>, ForwardList>);
+    STATIC_REQUIRE_FALSE(std::is_base_of_v<std::list<int32_t>, ForwardList>);
 }
 
 
 TEST_CASE("ForwardList has ctors", "[forward_list]") {
     REQUIRE(std::is_default_constructible_v<ForwardList>);
-    // default ctor
-    {
+
+    SECTION("Default ctor") {
         ForwardList a;
         REQUIRE(a.Size() == 0u);
         CheckLists(a, std::forward_list<int32_t>());
     }
-    // ctor (count, value);
-    {
+
+    SECTION("User-defined ctor") {
         ForwardList a(10, 1);
         REQUIRE(a.Size() == 10u);
         CheckLists(a, std::forward_list<int32_t>(10, 1));
     }
-    // initializer_list ctor
-    {
+
+    SECTION("Initializer list ctor") {
         ForwardList a{1, 2, 3, 4, 5};
         REQUIRE(a.Size() == 5u);
         CheckLists(a, std::forward_list<int32_t>{1, 2, 3, 4, 5});
@@ -91,7 +90,6 @@ TEST_CASE("Simple push/pop", "[forward_list]") {
 
 
 TEST_CASE("Advance push/pop", "[forward_list]") {
-    // advanced tests
     {
         ForwardList a;
         for (int32_t i = 0; i < 100000; ++i) {
@@ -146,13 +144,10 @@ TEST_CASE("Copying", "[forward_list]") {
     REQUIRE(c.FindByValue(5));
     REQUIRE(!c.FindByValue(10));
     CheckLists(c, std::forward_list<int32_t>{1, 2, 3, 4, 5, 6, 7});
-
 }
 
 
 TEST_CASE("Clear", "[forward_list]") {
-
-    // empty list
 
     ForwardList a;
     a.Clear();
@@ -173,7 +168,6 @@ TEST_CASE("Clear", "[forward_list]") {
     b.Clear();
     REQUIRE(a.Size() == 0u);
     CheckLists(a, std::forward_list<int32_t>());
-
 }
 
 
@@ -284,11 +278,10 @@ TEST_CASE("Remove(single elements)", "[forward_list]") {
     REQUIRE(a.Size() == 3u);
     REQUIRE(a.Front() == 2);
     CheckLists(a, std::forward_list<int32_t>{2, 3, 5});
-
 }
 
 
-TEST_CASE("Removeing(repeated elements)", "[forward_list]")    {
+TEST_CASE("Remove(repeated elements)", "[forward_list]")    {
     ForwardList a;
     a.PushFront(1);
     a.PushFront(8);
@@ -308,7 +301,6 @@ TEST_CASE("Removeing(repeated elements)", "[forward_list]")    {
 
 
 TEST_CASE("Output", "[forward_list]") {
-    // empty list
     {
         ForwardList a;
         REQUIRE(a.Size() == 0u);
@@ -319,7 +311,6 @@ TEST_CASE("Output", "[forward_list]") {
         REQUIRE(sstream.str().empty());
     }
 
-    // non-empty lists
     {
         ForwardList a;
         a.PushFront(6);
