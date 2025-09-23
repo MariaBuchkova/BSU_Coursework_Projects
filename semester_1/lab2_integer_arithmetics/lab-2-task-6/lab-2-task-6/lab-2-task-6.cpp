@@ -6,15 +6,10 @@ int main()
 {
 	int n, k = 1; //n - вводим с клавиатуры; k - простые числа Мерсена;
 	std::cout << "enter a integer n = "; std::cin >> n;
-	while (!(std::cin) || (n <= 0))
+	if (!(std::cin) || (n <= 0))
 	{
-		if (!(std::cin))
-		{
-			std::cout << "Error is not a number";
-			break;
-		}
-		std::cout << "eror, enter an integer greater than zero n = ";
-		std::cin >> n;
+			std::cout << "You're a stupid person, they asked for a non-negative integer, and what did you enter? ERROR!!!!!!!!!!!!!!!!!!!!!!!!";
+			return 0;
 	}
 	for (int p = 2; ; p++)  
 	{ 
