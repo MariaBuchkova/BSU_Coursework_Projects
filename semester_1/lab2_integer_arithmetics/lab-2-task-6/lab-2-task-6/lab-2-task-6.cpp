@@ -16,12 +16,9 @@ int main()
 		std::cout << "eror, enter an integer greater than zero n = ";
 		std::cin >> n;
 	}
-
 	for (int p = 2; ; p++)  
 	{ 
 		bool is_prime = true;  //p - простой показатель степени; is prime - простое или нет 
-
-		
 		for (int i = 2; i * i <= p; i++) 
 		{
 			if (p % i == 0) 
@@ -30,7 +27,6 @@ int main()
 				break;
 			}
 		}
-
 		if (is_prime) 
 		{
 			int k = pow(2, p) - 1;
@@ -40,8 +36,5 @@ int main()
 			std::cout << k << " ";
 		}
 	}
-
-
-
 	return 0;
 }
