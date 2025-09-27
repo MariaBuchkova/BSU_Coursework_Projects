@@ -8,13 +8,13 @@ int main()
 	std::cout << "enter a integer n = "; std::cin >> n;
 	if (!(std::cin) || (n <= 0))
 	{
-			std::cout << "You're a stupid person, they asked for a non-negative integer, and what did you enter? ERROR!!!!!!!!!!!!!!!!!!!!!!!!";
+			std::cout << "You're a STUPID person. they asked for a NON-NEGATIVE integer, and WHAT DID YOU ENTER!? ERROR!!!!!!!!!!!!!!!!!!!!!!!!";
 			return 0;
 	}
-	for (int p = 2; ; p++)  
+	for (int p = 2; ; p++)  //p - простой показатель степени;
 	{ 
-		bool is_prime = true;  //p - простой показатель степени; is prime - простое или нет 
-		for (int i = 2; i * i <= p; i++) 
+		bool is_prime = true;  //is_prime - простое или нет 
+		for (int i = 2; i * i <= p; i++) //с помощью i перебираем делители p
 		{
 			if (p % i == 0) 
 			{
