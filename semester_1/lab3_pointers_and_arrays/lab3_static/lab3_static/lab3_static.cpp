@@ -4,7 +4,7 @@
 int main() {
 	int const N_MAX = 1000;
 	int n, t = -1, nomer = -1;
-	double a[N_MAX], mod_a[N_MAX];
+	double a[N_MAX];
 	double min_mod, sum = 0, lower_lim, upper_lim, for_transfer, p;
 	int ran_or_not;
 	std::cout << "Enter the number of elements in the array not exceeding 1000 \n";
@@ -61,24 +61,23 @@ int main() {
 		}
 	}
 	std::cout << "array:\n";
-	for (int i = 0; i < n; i++)
-	{
-		mod_a[i] = std::fabs(a[i]);
-		std::cout << a[i] << "   ";
-	}
-	min_mod = mod_a[0];
+	min_mod = std::fabs(a[0]);
 	bool more_then_one = false;
 	for (int i = 1; i < n; i++)
 	{
-		if (min_mod == mod_a[i])
+		if (min_mod == std::fabs(a[i]))
 		{
 			more_then_one = true;
 			nomer = i + 1;
 		}
-		if (min_mod >= mod_a[i]) 
+		if (min_mod >= std::fabs(a[i]))
 		{
-			min_mod = mod_a[i]; 
+			min_mod = std::fabs(a[i]);
 		}
+	}
+	for (int i = 0; i < n; i++)
+	{
+		std::cout << a[i] << "   ";
 	}
 	std::cout << "\n" << "minimal in absolute value: " << min_mod ;
 	if (more_then_one == true)
@@ -110,9 +109,14 @@ int main() {
 
 	std::cout << "\nEnter the numbers you want to delete: "; 
 	std::cin >> p;
+	if (!(std::cin))
+	{
+		std::cout << "You're a STUPID person. they asked for a integer, and WHAT DID YOU ENTER!? ERROR!!! BEGIN AGAIN!";
+		return 0;
+	}
 	int k = 0; 
 	for (int i = 0; i < n; i++) {
-		if (a[i] != p) {
+		if (std::fabs (a[i] - p) > 0.00001) {
 			a[k] = a[i];
 			k++;
 		}
