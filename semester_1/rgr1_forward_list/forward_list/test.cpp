@@ -1,6 +1,6 @@
-#include <catch.hpp>
+#include "catch.hpp"
 
-#include <forward_list.h>
+#include "forward_list_impl.h"
 
 #include <forward_list>
 #include <list>
@@ -54,8 +54,7 @@ TEST_CASE("ForwardList has ctors", "[forward_list]") {
 TEST_CASE("Simple push/pop", "[forward_list]") {
 
     {
-        ForwardList a;
-        a.PushFront(1);
+        ForwardList a{1};
         REQUIRE(a.Size() == 1u);
         REQUIRE(a.Front() == 1);
         CheckLists(a, std::forward_list<int32_t>{1});
@@ -72,15 +71,9 @@ TEST_CASE("Simple push/pop", "[forward_list]") {
     }
 
     {
-        ForwardList a;
-        a.PushFront(1);
-        a.PushFront(5);
-        a.PushFront(1);
-        a.PushFront(3);
-        a.PushFront(2);
-        a.PushFront(1);
-
+        ForwardList a{1, 2, 3, 1, 5, 1};
         CheckLists(a, std::forward_list<int32_t>{1, 2, 3, 1, 5, 1});
+
         a.PopFront();
         a.PopFront();
         a.PopFront();
@@ -115,16 +108,9 @@ TEST_CASE("Advance push/pop", "[forward_list]") {
 
 
 TEST_CASE("Copying", "[forward_list]") {
-    REQUIRE(std::is_copy_constructible_v<ForwardList>);
+    STATIC_REQUIRE(std::is_copy_constructible_v<ForwardList>);
     
-    ForwardList a;
-    a.PushFront(7);
-    a.PushFront(6);
-    a.PushFront(5);
-    a.PushFront(4);
-    a.PushFront(3);
-    a.PushFront(2);
-    a.PushFront(1);
+    ForwardList a{1, 2, 3, 4, 5, 6, 7};
     CheckLists(a, std::forward_list<int32_t>{1, 2, 3, 4, 5, 6, 7});
 
     a = a;
@@ -134,7 +120,7 @@ TEST_CASE("Copying", "[forward_list]") {
     REQUIRE(b.Size() == 7u);
     REQUIRE(b.Front() == a.Front());
     REQUIRE(b.FindByValue(5));
-    REQUIRE(!b.FindByValue(10));
+    REQUIRE_FALSE(b.FindByValue(10));
     CheckLists(b, std::forward_list<int32_t>{1, 2, 3, 4, 5, 6, 7});
 
     ForwardList c;
@@ -142,26 +128,18 @@ TEST_CASE("Copying", "[forward_list]") {
     REQUIRE(c.Size() == 7u);
     REQUIRE(c.Front() == a.Front());
     REQUIRE(c.FindByValue(5));
-    REQUIRE(!c.FindByValue(10));
+    REQUIRE_FALSE(c.FindByValue(10));
     CheckLists(c, std::forward_list<int32_t>{1, 2, 3, 4, 5, 6, 7});
 }
 
 
 TEST_CASE("Clear", "[forward_list]") {
-
     ForwardList a;
     a.Clear();
     REQUIRE(a.Size() == 0u);
     CheckLists(a, std::forward_list<int32_t>());
 
-    ForwardList b;
-    b.PushFront(6);
-    b.PushFront(5);
-    b.PushFront(4);
-    b.PushFront(3);
-    b.PushFront(2);
-    b.PushFront(1);
-
+    ForwardList b{1, 2, 3, 4, 5, 6};
     REQUIRE(b.Size() == 6u);
     CheckLists(b, std::forward_list<int32_t>{1, 2, 3, 4, 5, 6});
 
@@ -173,13 +151,7 @@ TEST_CASE("Clear", "[forward_list]") {
 
 TEST_CASE("Iterator basics", "[forward_list]") {
     // simple iterator tests
-    ForwardList a;
-    a.PushFront(6);
-    a.PushFront(5);
-    a.PushFront(4);
-    a.PushFront(3);
-    a.PushFront(2);
-    a.PushFront(1);
+    ForwardList a{1, 2, 3, 4, 5, 6};
 
     ForwardList::ForwardListIterator it = a.begin();
     REQUIRE(*it == 1);
@@ -202,10 +174,7 @@ TEST_CASE("Iterator basics", "[forward_list]") {
 
 TEST_CASE("Modifications with iterators", "[forward_list]") {
 
-    ForwardList a;
-    a.PushFront(5);
-    a.PushFront(3);
-    a.PushFront(1);
+    ForwardList a{1, 3, 5};
     *(a.begin().operator->()) = 3;
     *((++a.begin()).operator->()) = 4;
 
@@ -218,13 +187,7 @@ TEST_CASE("Modifications with iterators", "[forward_list]") {
 
 TEST_CASE("Iterator loop", "[forward_list]") {
 
-    ForwardList a;
-    a.PushFront(6);
-    a.PushFront(5);
-    a.PushFront(4);
-    a.PushFront(3);
-    a.PushFront(2);
-    a.PushFront(1);
+    ForwardList a{1, 2, 3, 4, 5, 6};
 
     ForwardList::ForwardListIterator it = a.begin();
     ++it;
@@ -255,13 +218,7 @@ TEST_CASE("Iterator loop", "[forward_list]") {
 
 
 TEST_CASE("Remove(single elements)", "[forward_list]") {
-    ForwardList a;
-    a.PushFront(6);
-    a.PushFront(5);
-    a.PushFront(4);
-    a.PushFront(3);
-    a.PushFront(2);
-    a.PushFront(1);
+    ForwardList a{1, 2, 3, 4, 5, 6};
     CheckLists(a, std::forward_list<int32_t>{1, 2, 3, 4, 5, 6});
 
     a.Remove(4);
@@ -282,15 +239,7 @@ TEST_CASE("Remove(single elements)", "[forward_list]") {
 
 
 TEST_CASE("Remove(repeated elements)", "[forward_list]")    {
-    ForwardList a;
-    a.PushFront(1);
-    a.PushFront(8);
-    a.PushFront(1);
-    a.PushFront(5);
-    a.PushFront(2);
-    a.PushFront(1);
-    a.PushFront(1);
-    a.PushFront(1);
+    ForwardList a{1, 1, 1, 2, 5, 1, 8, 1};
     REQUIRE(a.Size() == 8u);
     CheckLists(a, std::forward_list<int32_t>{1, 1, 1, 2, 5, 1, 8, 1});
 
@@ -312,8 +261,7 @@ TEST_CASE("Output", "[forward_list]") {
     }
 
     {
-        ForwardList a;
-        a.PushFront(6);
+        ForwardList a{6};
         REQUIRE(a.Size() == 1u);
         CheckLists(a, std::forward_list<int32_t>{6});
 
@@ -323,13 +271,7 @@ TEST_CASE("Output", "[forward_list]") {
     }
 
     {
-        ForwardList a;
-        a.PushFront(6);
-        a.PushFront(5);
-        a.PushFront(4);
-        a.PushFront(3);
-        a.PushFront(2);
-        a.PushFront(1);
+        ForwardList a{1, 2, 3, 4, 5, 6};
         REQUIRE(a.Size() == 6u);
         CheckLists(a, std::forward_list<int32_t>{1, 2, 3, 4, 5, 6});
 

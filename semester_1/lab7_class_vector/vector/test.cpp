@@ -1,6 +1,6 @@
-#include <catch.hpp>
+#include "catch.hpp"
 
-#include <vector.h>
+#include "vector_impl.h"
 
 #include <vector>
 #include <sstream>
@@ -57,16 +57,16 @@ TEST_CASE("Modifications with []", "[vector]") {
 
 TEST_CASE("Reallocations", "[vector]") {
     const int steps = 16;
-    Vector data;
+    Vector actual;
     for (int step = 0; step <= steps; ++step) {
-        std::vector<int> ok_data;
+        std::vector<int> expected;
         for (int i = 0; i <= (1 << step); ++i) {
-            data.PushBack(i);
-            ok_data.push_back(i);
+            actual.PushBack(i);
+            expected.push_back(i);
         }
-        Check(data, ok_data);
-        REQUIRE(data.Capacity() == (1u << (step + 1)));
-        data.Clear();
+        Check(actual, expected);
+        REQUIRE(actual.Capacity() == (1u << (step + 1)));
+        actual.Clear();
     }
 }
 
