@@ -78,7 +78,7 @@ make test_multiplication
 
 ### Задача Vector
 
-В этой задаче вам разрешено менять только файлы [vector.h](vector/vector.h) и [vector.cpp](vector/vector.cpp), в которых будет ваша реализация класса `Vector`. Остальные файлы трогать не нужно, т.к. сборка может сломаться. Тесты к задаче находятся в файле [test.cpp](vector/test.cpp). 
+В этой задаче вам разрешено менять только файлы [vector_impl.h](vector/vector_impl.h) и [vector_impl.cpp](vector/vector_impl.cpp), в которых будет ваша реализация класса `Vector`. Остальные файлы трогать не нужно, т.к. сборка может сломаться. Тесты к задаче находятся в файле [test.cpp](vector/test.cpp). 
 
 Сборка и запуск программы осуществляются аналогично задаче multiplication, за исключением того, что вы собираете не test_multiplication, а test_vector:
 ```bash
