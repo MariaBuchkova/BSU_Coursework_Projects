@@ -12,7 +12,7 @@
 
 ### Создане папки build
 ```shell
-# В директории 'lab7(class_vector)/'
+# В директории 'lab7_class_vector/'
 mkdir build
 cd build/
 ```
@@ -21,16 +21,16 @@ cd build/
 
 > Перед выполнением следующей команды, проверьте, что вы создали папку **build** в директории с самой задачей, а не в корне репозитория.
 
-```
+```shell
 cmake ..
 ```
 
 Если вы на этом шаге получите странные ошибки, то ещё раз напомню, чтобы вы проверили, что вы создали папку **build** в директории с самой задачей, а не в корне репозитория!
 
-При этом будет выведена некоторая служебная информация, в частности используемый компилятор:
+При этом будет выведена некоторая служебная информация, в частности используемый компилятор (ниже приведён пример вывода, у вас может отличаться):
 ```
--- The C compiler identification is GNU 13.3.0
--- The CXX compiler identification is GNU 13.3.0
+-- The C compiler identification is GNU 14.2.0
+-- The CXX compiler identification is GNU 14.2.0
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
 -- Check for working C compiler: /usr/bin/cc - skipped
@@ -41,9 +41,9 @@ cmake ..
 -- Check for working CXX compiler: /usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Configuring done (0.7s)
+-- Configuring done (0.5s)
 -- Generating done (0.0s)
--- Build files have been written to: /home/egor/cpp_labs/lab7(class_vector)/build
+-- Build files have been written to: /home/egor/fpmi_cpp_labs/semester_1/lab7_class_vector/build
 ```
 
 > Для корректной сборки необходим `g++` версии не ниже 7.1 или `clang++` версии не ниже 5.0.
