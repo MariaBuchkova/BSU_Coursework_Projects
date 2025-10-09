@@ -14,14 +14,17 @@ void Check(const Vector& actual, const std::vector<int>& expected) {
 
 TEST_CASE("Vector has constructors", "[vector]") {
     {
+        INFO("default ctor");
         Vector a;
         REQUIRE(a.Size() == 0u);
     }
     {
+        INFO("initializet_list ctor");
         Vector a{1, 2, 3, 4};
         Check(a, std::vector<int>{1, 2, 3, 4});
     }
     {
+        INFO("size ctor");
         Vector a(5);
         Check(a, std::vector<int>(5));
     }
@@ -52,6 +55,15 @@ TEST_CASE("Modifications with []", "[vector]") {
     a[0] = 1;
     a[1] = 2;
     a[2] = 3;
+    Check(a, std::vector<int>{1, 2, 3});
+}
+
+TEST_CASE("At method", "[vector]") {
+    Vector a{1, 2, 5};
+    REQUIRE(a.At(1) == 2);
+    REQUIRE_THROWS_AS(a.At(3), std::out_of_range);
+    REQUIRE_THROWS_AS(a.At(10), std::out_of_range);
+    a.At(2) = 3;
     Check(a, std::vector<int>{1, 2, 3});
 }
 
@@ -118,6 +130,7 @@ TEST_CASE("Copy correctness", "[vector]") {
 
 TEST_CASE("Output", "[vector]") {
     {
+        INFO("Emty vector output");
         Vector v;
         std::stringstream ss;
         ss << v;
@@ -125,6 +138,7 @@ TEST_CASE("Output", "[vector]") {
     }
 
     {
+        INFO("Vector output");
         Vector v{1, 2, 3, 4, 5, 6};
         std::stringstream ss;
         ss << v;
