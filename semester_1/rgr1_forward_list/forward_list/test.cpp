@@ -30,7 +30,7 @@ TEST_CASE("Fool", "[forward_list]") {
 
 
 TEST_CASE("ForwardList has ctors", "[forward_list]") {
-    REQUIRE(std::is_default_constructible_v<ForwardList>);
+    STATIC_REQUIRE(std::is_default_constructible_v<ForwardList>);
 
     SECTION("Default ctor") {
         ForwardList a;
