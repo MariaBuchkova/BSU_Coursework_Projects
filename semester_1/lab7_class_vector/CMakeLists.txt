@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.10)
 
-project(vector_tests)
+project(class_vector)
 
 set(CMAKE_CXX_STANDARD             17)
 set(CMAKE_MODULE_PATH              "${CMAKE_SOURCE_DIR}/cmake")
@@ -15,5 +15,4 @@ include(cmake/TestSolution.cmake)
 include(cmake/BuildFlags.cmake)
 
 add_subdirectory(multiplication)
-
 add_subdirectory(vector)
