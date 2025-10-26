@@ -1,5 +1,7 @@
 ﻿#include<iostream>
 #include<random>
+#include <iomanip>
+#include <cstdlib>
 void print_matrix(int** matrix, int num_line, int num_columns)
 {
 	std::cout << "\n";
@@ -7,7 +9,7 @@ void print_matrix(int** matrix, int num_line, int num_columns)
 	{
 		for (int j = 0; j < num_columns; ++j)
 		{
-			std::cout << matrix[i][j] << " | ";
+			std::cout << std::setw(4) << matrix[i][j];
 		}
 		std::cout << "\n";
 	}
@@ -39,15 +41,14 @@ void input_matrix(int** matrix, int num_line, int num_columns)
 void delete_matrix(int** matrix, int num_line)
 {
 	for (int i = 0; i < num_line; ++i)
-	{
 		delete[] matrix[i];
-	}
 	delete[] matrix;
-	matrix = nullptr;
 }
-void delete_and_exit(int** matrix, int num_line) {
+
+void delete_and_exit(int** matrix, int num_line)
+{
 	delete_matrix(matrix, num_line);
-	exit(1);
+	std::exit(EXIT_FAILURE);
 }
 bool check_letter()
 {
@@ -128,7 +129,7 @@ void matrix_input(int** matrix, int num_line, int num_columns) {
 		if (lower_lim > upper_lim) {
 			std::swap(lower_lim, upper_lim);
 		}
-		std::mt19937 gen(45218965); // фиксированный seed
+		std::mt19937 gen(45218965);
 		std::uniform_int_distribution<int> dist(lower_lim, upper_lim);
 		for (int i = 0; i < num_line; ++i) {
 			for (int j = 0; j < num_columns; ++j) {
@@ -146,29 +147,29 @@ void matrix_input(int** matrix, int num_line, int num_columns) {
 
 //----------------------------------------------------------------------->
 
-void bubble_sort(int** a, int n, int m, int yb)
+void bubble_sort(int** matrix, int num_line, int num_columns, int descending)
 {
 	bool swaped;
-	for (int i = 0; i < n; ++i)
+	for (int i = 0; i < num_line; ++i)
 	{
-		for (int j = 0; j < m - 1; ++j)
+		for (int j = 0; j < num_columns - 1; ++j)
 		{
 			swaped = false;
-			for (int k = 0; k < m - 1 - j; ++k)
+			for (int k = 0; k < num_columns - 1 - j; ++k)
 			{
-				if (yb)
+				if (descending)
 				{
-					if (a[i][k] > a[i][k + 1])
+					if (matrix[i][k] > matrix[i][k + 1])
 					{
-						std::swap(a[i][k], a[i][k + 1]);
+						std::swap(matrix[i][k], matrix[i][k + 1]);
 						swaped = true;
 					}
 				}
 				else
 				{
-					if (a[i][k] < a[i][k + 1])
+					if (matrix[i][k] < matrix[i][k + 1])
 					{
-						std::swap(a[i][k], a[i][k + 1]);
+						std::swap(matrix[i][k], matrix[i][k + 1]);
 						swaped = true;
 					}
 				}
@@ -177,35 +178,141 @@ void bubble_sort(int** a, int n, int m, int yb)
 		}
 	}
 	std::cout << "bubble sort matrix:";
-	print_matrix(a, n, m);
+	print_matrix(matrix, num_line, num_columns);
 }
-void insert_sort(int** mat, int n, int m, int yb)
+void insert_sort(int** matrix, int num_line, int num_columns, int descending)
 {
-	for (int k = 0; k < n; ++k)
+	for (int i = 0; i < num_line; ++i)
 	{
-		for (int i = 1; i < m; ++i)
+		for (int j = 1; j < num_columns; ++j)
 		{
-			int x = mat[k][i];
-			if (yb)
+			int x = matrix[i][j];
+			int k = j - 1;
+
+			if (descending)
 			{
-				for (int j = i - 1; j >= 0 && mat[k][j] > x; --j)
+				while (k >= 0 && matrix[i][k] > x)
 				{
-					mat[k][j + 1] = mat[k][j];
-					mat[k][j] = x;
+					matrix[i][k + 1] = matrix[i][k];
+					--k;
 				}
 			}
-			else 
+			else
 			{
-				for (int j = i - 1; j > 0 && mat[k][j] < x; --j)
+				while (k >= 0 && matrix[i][k] < x)
 				{
-					mat[k][j + 1] = mat[k][j];
-					mat[k][j] = x;
+					matrix[i][k + 1] = matrix[i][k];
+					--k;
+				}
+			}
+			matrix[i][k + 1] = x;
+		}
+	}
+	std::cout << "insert sort matrix:";
+	print_matrix(matrix, num_line, num_columns);
+}
+void counter_sort(int** matrix, int num_line, int num_columns, int descending)
+{
+	int* count = new int[100];
+	for (int i = 0; i < num_line; ++i)
+	{
+		for (int j = 0; j < 100; ++j)
+		{
+			count[j] = 0;
+		}
+		for (int j = 0; j < num_columns; ++j)
+		{
+			if (matrix[i][j] < 0 || matrix[i][j] >= 100)
+			{
+				std::cout << "Invalid value in " << i + 1 << " line; " << j + 1 << " column: " << matrix[i][j];
+				delete[] count;
+				delete_and_exit(matrix, num_line);
+			}
+			++count[matrix[i][j]];
+		}
+		int k = 0;
+		if (descending)
+		{
+			for (int j = 0; j < 100; ++j)
+			{
+				while (count[j] != 0)
+				{
+					matrix[i][k++] = j;
+					--count[j];
+				}
+			}
+		}
+		else
+		{
+			for (int j = 99; j > -1; --j)
+			{
+				while (count[j] != 0)
+				{
+					matrix[i][k++] = j;
+					--count[j];
 				}
 			}
 		}
 	}
-	std::cout << "insert sort matrix:";
-	print_matrix(mat, n, m);
+	delete[] count;
+	std::cout << "count sort matrix:";
+	print_matrix(matrix, num_line, num_columns);
+}
+void merge(int** matrix, int left, int mid, int right, int num_line, int row_index, int** sort_matrix, int descending)
+{
+	int i = left;
+	int j = mid;
+	int k = left;
+	while (i < mid && j < right)
+	{
+		if (descending) {
+			if (matrix[row_index][i] <= matrix[row_index][j])
+			{
+				sort_matrix[row_index][k++] = matrix[row_index][i++];
+			}
+			else
+			{	
+				sort_matrix[row_index][k++] = matrix[row_index][j++];
+			}
+		}
+		else
+		{
+			if (matrix[row_index][i] >= matrix[row_index][j])
+			{
+				sort_matrix[row_index][k++] = matrix[row_index][i++];
+			}
+			else
+			{
+				sort_matrix[row_index][k++] = matrix[row_index][j++];
+			}
+		}
+	}
+	while (i < mid)
+	{
+		sort_matrix[row_index][k++] = matrix[row_index][i++];
+	}
+	while (j < right)
+	{
+		sort_matrix[row_index][k++] = matrix[row_index][j++];
+	}
+
+	for (int t = left; t < right; t++)
+	{
+		matrix[row_index][t] = sort_matrix[row_index][t];
+	}
+}
+void merge_sort(int** matrix, int left, int right, int num_line, int** sort_matrix, int descending)
+{
+	if (right - left <= 1) return;
+	for (int row_index = 0; row_index < num_line; ++row_index)
+	{
+		int mid = (left + right) / 2;
+
+		merge_sort(matrix, left, mid, num_line, sort_matrix, descending);
+		merge_sort(matrix, mid, right, num_line, sort_matrix, descending);
+
+		merge(matrix, left, mid, right, num_line, row_index, sort_matrix, descending);
+	}
 }
 
 int main()
@@ -228,7 +335,7 @@ int main()
 	}
 	int sort;
 	std::cout << "Select how you want to sort the lines:\n";
-	std::cout<<"Enter 1 - bubble\nEnter 2 - insert\nEnter 3 - count\nEnter 4 - merge\n";
+	std::cout<<"Enter 1 - bubble\nEnter 2 - insert\nEnter 3 - count (only possible for numbers from 0 to 99)\nEnter 4 - merge\n";
 	std::cout << "enter an option: ";
 	std::cin >> sort;
 	if (check_letter()) {
@@ -248,16 +355,22 @@ int main()
 	}
 	case 3:
 	{
-
+		counter_sort(mat, n, m, yb);
 		break;
 	}
 	case 4:
 	{
-
+		int** ar = din_memory_matrix(n, m);
+		int f = 0;
+		merge_sort(mat, f, m, n, ar, yb);
+		std::cout << "merge sort matrix:";
+		print_matrix(mat, n, m);
+		delete_matrix(ar, n);
 		break;
 	}
 	default:
 		std::cout << "Error, the entered number does not match the selection options\n";
 		delete_and_exit(mat, n);
 	}
+	delete_matrix(mat, n);
 }
