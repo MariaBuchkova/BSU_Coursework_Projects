@@ -1,42 +1,43 @@
-﻿#include<iostream>
+﻿//задание 5; все функции написаны для квадратной матрицы
+
+#include<iostream>
 #include<random>
 #include <iomanip>
-#include <cstdlib>
-void print_matrix(int** matrix, int num_line, int num_columns)
+void print_matrix(int** matrix, int num_line)
 {
 	std::cout << "\n";
 	for (int i = 0; i < num_line; ++i)
 	{
-		for (int j = 0; j < num_columns; ++j)
+		for (int j = 0; j < num_line; ++j)
 		{
 			std::cout << std::setw(4) << matrix[i][j];
 		}
 		std::cout << "\n";
 	}
 }
-int** din_memory_matrix(int num_line, int num_columns)
+int** din_memory_matrix(int num_line)
 {
 	int** matrix = new int* [num_line];
 	for (int i = 0; i < num_line; ++i)
 	{
-		matrix[i] = new int[num_columns];
+		matrix[i] = new int[num_line];
 	}
 	return matrix;
 }
-void input_matrix(int** matrix, int num_line, int num_columns)
+void cin_input_matrix(int** matrix, int num_line)
 {
 	std::cout << "\n";
 	for (int i = 0; i < num_line; ++i)
 	{
 		std::cout << "enter " << i + 1 << " line of matrix: \n";
-		for (int j = 0; j < num_columns; ++j)
+		for (int j = 0; j < num_line; ++j)
 		{
 			std::cin >> matrix[i][j];
 		}
 		std::cout << "\n";
 	}
 	std::cout << "original matrix: ";
-	print_matrix(matrix, num_line, num_columns);
+	print_matrix(matrix, num_line);
 }
 void delete_matrix(int** matrix, int num_line)
 {
@@ -48,7 +49,7 @@ void delete_matrix(int** matrix, int num_line)
 void delete_and_exit(int** matrix, int num_line)
 {
 	delete_matrix(matrix, num_line);
-	std::exit(EXIT_FAILURE);
+	exit(1);
 }
 bool check_letter()
 {
@@ -70,21 +71,15 @@ bool check_negotiv(int value)
 	return false;
 }
 
-bool enter_num_line_columns(int& num_line, int& num_columns)
+bool enter_num_line(int& num_line)
 {
 	std::cout << "Enter number of lines: ";
 	std::cin >> num_line;
 	if (check_letter() || check_negotiv(num_line))
 		return false;
-
-	std::cout << "Enter number of columns: ";
-	std::cin >> num_columns;
-	if (check_letter() || check_negotiv(num_columns))
-		return false;
-
 	return true;
 }
-void matrix_input(int** matrix, int num_line, int num_columns) {
+void input_matrix_choice(int** matrix, int num_line) {
 	int ran_or_not;
 	std::cout << "Enter the array randomly? ( 1 - true; 0 - false )\n";
 	std::cout << "----------> ";
@@ -97,7 +92,7 @@ void matrix_input(int** matrix, int num_line, int num_columns) {
 		bool find_error = false;
 		for (int i = 0; i < num_line && !find_error; ++i) {
 			std::cout << "enter " << i + 1 << " line of matrix: \n";
-			for (int j = 0; j < num_columns && !find_error; ++j) {
+			for (int j = 0; j < num_line && !find_error; ++j) {
 				std::cin >> matrix[i][j];
 				if (check_letter()) {
 					find_error = true;
@@ -110,7 +105,7 @@ void matrix_input(int** matrix, int num_line, int num_columns) {
 			delete_and_exit(matrix, num_line);
 		}
 		std::cout << "original matrix: ";
-		print_matrix(matrix, num_line, num_columns);
+		print_matrix(matrix, num_line);
 		break;
 	}
 	case 1: {
@@ -132,11 +127,11 @@ void matrix_input(int** matrix, int num_line, int num_columns) {
 		std::mt19937 gen(45218965);
 		std::uniform_int_distribution<int> dist(lower_lim, upper_lim);
 		for (int i = 0; i < num_line; ++i) {
-			for (int j = 0; j < num_columns; ++j) {
+			for (int j = 0; j < num_line; ++j) {
 				matrix[i][j] = dist(gen);
 			}
 		}
-		print_matrix(matrix, num_line, num_columns);
+		print_matrix(matrix, num_line);
 		break;
 	}
 	default:
@@ -146,16 +141,15 @@ void matrix_input(int** matrix, int num_line, int num_columns) {
 }
 int main()
 {
-	int num_line = 0, num_columns = 0;
-	if (!enter_num_line_columns(num_line, num_columns))
+	int num_line = 0;
+	if (!enter_num_line(num_line))
 		return 1;
-	int** matrix = din_memory_matrix(num_line, num_columns);
-	matrix_input(matrix, num_line, num_columns);
-	int max_triangle_el = matrix[1][num_line - 1];
-	for (int i = 2; i < num_line; ++i)
+	int** matrix = din_memory_matrix(num_line);
+	input_matrix_choice(matrix, num_line);
+	int max_triangle_el = matrix[0][num_line - 1];
+	for (int i = 1; i < num_line; ++i)
 	{
-		std::cout << "\n";
-		for (int j = num_line - 2; j > num_line - i - 1; --j)
+		for (int j = num_line - 2; j >= num_line - i - 1; --j)
 		{
 			if (matrix[i][j] > max_triangle_el)
 			{
@@ -177,6 +171,7 @@ int main()
 			}
 		}
 	}
+	std::cout << "\n Max element in matrix: " << max_el<<" in position: "<< i_max_el+1<<", "<< j_max_el+1;
 	if (max_el > 0)
 	{
 		for (int j = 0; j < num_line; ++j)
@@ -188,7 +183,7 @@ int main()
 			std::swap(matrix[i][0], matrix[i][j_max_el]);
 		}
 		std::cout << "\nnew matrix: \n";
-		print_matrix(matrix, num_line,num_columns);
+		print_matrix(matrix, num_line);
 	}
 	else
 	{
