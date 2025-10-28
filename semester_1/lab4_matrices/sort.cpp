@@ -258,7 +258,7 @@ void counter_sort(int** matrix, int num_line, int num_columns, int descending)
 	std::cout << "count sort matrix:";
 	print_matrix(matrix, num_line, num_columns);
 }
-void merge(int** matrix, int left, int mid, int right, int num_line, int row_index, int** sort_matrix, int descending)
+void merge(int** matrix, int left, int mid, int right, int row_index, int** sort_matrix, int descending)
 {
 	int i = left;
 	int j = mid;
@@ -301,17 +301,17 @@ void merge(int** matrix, int left, int mid, int right, int num_line, int row_ind
 		matrix[row_index][t] = sort_matrix[row_index][t];
 	}
 }
-void merge_sort(int** matrix, int left, int right, int num_line, int** sort_matrix, int descending)
+void merge_sort(int** matrix, int left, int right, int num_line, int** sort_matrix, int ascending)
 {
 	if (right - left <= 1) return;
 	for (int row_index = 0; row_index < num_line; ++row_index)
 	{
 		int mid = (left + right) / 2;
 
-		merge_sort(matrix, left, mid, num_line, sort_matrix, descending);
-		merge_sort(matrix, mid, right, num_line, sort_matrix, descending);
+		merge_sort(matrix, left, mid, num_line, sort_matrix, ascending);
+		merge_sort(matrix, mid, right, num_line, sort_matrix, ascending);
 
-		merge(matrix, left, mid, right, num_line, row_index, sort_matrix, descending);
+		merge(matrix, left, mid, right, row_index, sort_matrix, ascending);
 	}
 }
 
@@ -322,7 +322,7 @@ int main()
 		return 1;
 	int** mat = din_memory_matrix(n, m);
 	matrix_input(mat, n, m);
-	std::cout << "How would you like to sort? (Enter 1 if descending, 0 if ascending): ";
+	std::cout << "How would you like to sort? (Enter 0 if descending, 1 if ascending): ";
 	int yb;
 	std::cin >> yb;
 	if (check_letter()) {
@@ -361,8 +361,7 @@ int main()
 	case 4:
 	{
 		int** ar = din_memory_matrix(n, m);
-		int f = 0;
-		merge_sort(mat, f, m, n, ar, yb);
+		merge_sort(mat, 0, m, n, ar, yb);
 		std::cout << "merge sort matrix:";
 		print_matrix(mat, n, m);
 		delete_matrix(ar, n);
