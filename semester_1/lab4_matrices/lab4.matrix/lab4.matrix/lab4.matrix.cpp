@@ -52,33 +52,36 @@ void check_letter()
 		throw "Error! This is not a number\n";
 	}
 }
-void check_negotiv(int value)
+void check_nonpositive(int value)
 {
 	if (value <= 0)
 	{
 		throw "Error! This is a negative number!\n";
 	}
 }
+void input_int(int& integer)
+{
+	std::cin >> integer;
+	check_letter();
+}
 void enter_num_line(int& num_line)
 {
 	std::cout << "Enter number of lines: ";
 	std::cin >> num_line;
 	check_letter();
-	check_negotiv(num_line);
+	check_nonpositive(num_line);
 }
 void input_matrix_choice(int** matrix, int num_line, std::mt19937& gen) {
-	int ran_or_not;
 	std::cout << "Enter the array randomly? ( 1 - true; 0 - false )\n";
 	std::cout << "----------> ";
-	std::cin >> ran_or_not;
-	check_letter();
+	int ran_or_not;
+	input_int(ran_or_not);
 	switch (ran_or_not) {
 	case 0: {
 		for (int i = 0; i < num_line; ++i) {
 			std::cout << "enter " << i + 1 << " line of matrix: \n";
 			for (int j = 0; j < num_line; ++j) {
-				std::cin >> matrix[i][j];
-				check_letter();
+				input_int(matrix[i][j]);
 			}
 			std::cout << "\n";
 		}
@@ -89,12 +92,10 @@ void input_matrix_choice(int** matrix, int num_line, std::mt19937& gen) {
 	case 1: {
 		int lower_lim;
 		std::cout << "enter the lower limit: ";
-		std::cin >> lower_lim;
-		check_letter();
+		input_int(lower_lim);
 		int upper_lim;
 		std::cout << "enter the upper limit: ";
-		std::cin >> upper_lim;
-		check_letter();
+		input_int(upper_lim);
 		if (lower_lim > upper_lim) {
 			std::swap(lower_lim, upper_lim);
 		}
@@ -114,68 +115,63 @@ void input_matrix_choice(int** matrix, int num_line, std::mt19937& gen) {
 int main()
 {
 	int num_line = 0;
+	int** matrix = nullptr;
 	try {
 		enter_num_line(num_line);
-		int** matrix = din_memory_matrix(num_line);
+		matrix = din_memory_matrix(num_line);
 		std::mt19937 gen(45218965);
-		try {
-			input_matrix_choice(matrix, num_line, gen);
-			//поиск максимального элемента в правом нижнем треугольнике (с диагональю) матрицы
-			int max_triangle_el = matrix[0][num_line - 1];
-			int i_max_el = 0, j_max_el = 0; //для следующего задания
-			for (int i = 1; i < num_line; ++i)
+		input_matrix_choice(matrix, num_line, gen);
+		//нижний правый треугольник с диагональю
+		int max_triangle_el = matrix[0][num_line - 1];
+		int i_max_el = 0, j_max_el = 0; //для следующего задания
+		for (int i = 1; i < num_line; ++i)
+		{
+			for (int j = num_line - 2; j >= num_line - i - 1; --j)
 			{
-				for (int j = num_line - 2; j >= num_line - i - 1; --j)
+				if (matrix[i][j] > max_triangle_el)
 				{
-					if (matrix[i][j] > max_triangle_el)
-					{
-						max_triangle_el = matrix[i][j];
-						i_max_el = i, j_max_el = j; //для следующего задания
-					}
+					max_triangle_el = matrix[i][j];
+					i_max_el = i, j_max_el = j; //для следующего задания
 				}
 			}
-			std::cout << "the maximum element of the lower right triangle of the matrix = " << max_triangle_el;
-			//поиск максимального элеманта в матрице (используем max_triangle_el для этого и идём по оставшимся элементам)
-			int max_el = max_triangle_el;
-			for (int i = 0; i < num_line- 1 ; ++i)
-			{
-				for (int j = 0; j < num_line - i; ++j)
-				{
-					if (matrix[i][j] > max_el)
-					{
-						max_el = matrix[i][j];
-						i_max_el = i, j_max_el = j;
-					}
-				}
-			}
-			if (max_el > 0)
-			{
-				std::cout << "\nMax positiv element in matrix: " << max_el << " in position: " << i_max_el + 1 << ", " << j_max_el + 1;
-				for (int j = 0; j < num_line; ++j)
-				{
-					std::swap(matrix[0][j], matrix[i_max_el][j]);
-				}
-				for (int i = 0; i < num_line; ++i)
-				{
-					std::swap(matrix[i][0], matrix[i][j_max_el]);
-				}
-				std::cout << "\nnew matrix: \n";
-				print_matrix(matrix, num_line);
-			}
-			else
-			{
-				throw "\nError: There are no positive elements in the array.";
-			}
-			delete_matrix(matrix, num_line);
 		}
-		catch (const char* msg) {
-			std::cout << msg;
-			delete_matrix(matrix, num_line);
-			return 1;
+		std::cout << "the maximum element of the lower right triangle of the matrix = " << max_triangle_el;
+		//оставшаяся часть матрицы
+		int max_el = max_triangle_el;
+		for (int i = 0; i < num_line - 1; ++i)
+		{
+			for (int j = 0; j < num_line - i; ++j)
+			{
+				if (matrix[i][j] > max_el)
+				{
+					max_el = matrix[i][j];
+					i_max_el = i, j_max_el = j;
+				}
+			}
 		}
+		if (max_el > 0)
+		{
+			std::cout << "\nMax positiv element in matrix: " << max_el << " in position: " << i_max_el + 1 << ", " << j_max_el + 1;
+			for (int j = 0; j < num_line; ++j)
+			{
+				std::swap(matrix[0][j], matrix[i_max_el][j]);
+			}
+			for (int i = 0; i < num_line; ++i)
+			{
+				std::swap(matrix[i][0], matrix[i][j_max_el]);
+			}
+			std::cout << "\nnew matrix: \n";
+			print_matrix(matrix, num_line);
+		}
+		else
+		{
+			throw "\nError: There are no positive elements in the array.";
+		}
+		delete_matrix(matrix, num_line);
 	}
 	catch (const char* msg) {
 		std::cout << msg;
 	}
+	if (matrix) delete_matrix(matrix, num_line);
 	return 0;
 }
