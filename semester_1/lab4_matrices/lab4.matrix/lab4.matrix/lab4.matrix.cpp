@@ -168,10 +168,14 @@ int main()
 			throw "\nError: There are no positive elements in the array.";
 		}
 		delete_matrix(matrix, num_line);
+		matrix = nullptr;
 	}
 	catch (const char* msg) {
 		std::cout << msg;
 	}
-	if (matrix) delete_matrix(matrix, num_line);
+	if (matrix) {
+		delete_matrix(matrix, num_line);
+		matrix = nullptr;
+	}
 	return 0;
 }
