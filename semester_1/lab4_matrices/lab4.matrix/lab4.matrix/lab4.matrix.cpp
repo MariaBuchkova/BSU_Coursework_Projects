@@ -171,7 +171,7 @@ int main()
 		matrix = nullptr;
 	}
 	catch (const char* msg) {
-		std::cout << msg;
+		std::cerr << msg;
 	}
 	if (matrix) {
 		delete_matrix(matrix, num_line);
