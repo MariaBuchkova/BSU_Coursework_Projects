@@ -14,6 +14,9 @@ public:
 	fraction(int num);
 	fraction(int num, int den);
 
+	fraction(const fraction&);
+	fraction& operator = (const fraction&);
+
 	fraction operator * (const fraction&) const;
 	fraction operator / (const fraction&) const;
 	fraction operator + (const fraction&) const;

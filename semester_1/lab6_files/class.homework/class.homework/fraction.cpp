@@ -34,8 +34,21 @@ fraction::fraction(int num, int den) {
 		num = -num;
 		den = -den;
 	}
-	num_ = num / NOD(num, den);
-	den_ = den / NOD(num, den);
+	int nod = NOD(num, den);
+	num_ = num / nod;
+	den_ = den / nod;
+}
+
+fraction::fraction(const fraction& drob ) {
+	num_ = drob.num_;
+	den_ = drob.den_;
+}
+fraction& fraction::operator = (const fraction& drob) {
+	if (this != &drob) {
+		num_ = drob.num_;
+		den_ = drob.den_;
+	}
+	return *this;
 }
 
 fraction fraction::operator * (const fraction& drob) const {
@@ -105,14 +118,14 @@ bool fraction::operator < (const fraction& drob) const {
 	return num_ * (nok / den_) < drob.num_ * (nok / drob.den_);
 }
 bool fraction::operator != (const fraction& drob) const {
-	return (num_ != drob.num_) && (den_ != drob.den_);
+	return !(*this == drob);
 }
 bool fraction::operator >= (const fraction& drob) const {
-	return !(*this==drob);
+	return (drob == *this) || (*this > drob);
 }
 bool fraction::operator <= (const fraction& drob) const {
 	return (drob == *this) || (*this < drob);
 }
 void fraction::print() const {
-	std::cout << num_ << "\n" << "-\n" << den_ << "\n";
+	std::cout << num_ << "/" << den_ << "\n";
 }
