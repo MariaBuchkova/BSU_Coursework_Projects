@@ -20,24 +20,32 @@ void PrintVector(const std::vector<std::string>& vector) {
 	}
 	std::cout << "\n";
 }
-
-std::string FindLeghtPalindrom(const std::string& text) {
+std::vector<std::string> ReadDataFromFile(const std::string& inputFileName) {
+	std::ifstream in(inputFileName);
+	CheckInFile(in);
+	std::vector<std::string> lines;
+	std::string line;
+	while (std::getline(in, line)) {
+		lines.push_back(line);
+	}
+	return lines;
+}
+std::string FindLengthPalindrome(const std::string& text) {
 	
 }
-MaxPalindromes CollectLongestPalindromes(std::ifstream& InFile) {
+MaxPalindromes CollectLongestPalindromes(std::vector<std::string> lines) {
 	MaxPalindromes result;
-	std::string line;
-	while (std::getline(InFile, line)) {
-		std::string palindrom = FindLeghtPalindrom(line);
+	for (size_t i = 0; i < lines.size(); ++i) {
+		std::string palindrom = FindLengthPalindrome(lines[i]);
 		if (palindrom.size() > result.size) {
 			result.vecStr.clear();
 			result.size = palindrom.size();
-			result.vecStr.push_back(line);
+			result.vecStr.push_back(lines[i]);
 			result.vecPal.push_back(palindrom);
 		}
 		else {
 			if (palindrom.size() == result.size) {
-				result.vecStr.push_back(line);
+				result.vecStr.push_back(lines[i]);
 				result.vecPal.push_back(palindrom);
 			}
 		}
@@ -49,11 +57,11 @@ MaxPalindromes CollectLongestPalindromes(std::ifstream& InFile) {
 }
 int main() {
 	try {
-		std::ifstream InFile("input.txt");
-		CheckInFile(InFile);
-		MaxPalindromes result = CollectLongestPalindromes(InFile);
+		const std::string inputFileName = "input.txt";
+		std::vector<std::string>text = ReadDataFromFile(inputFileName);
+		MaxPalindromes result = CollectLongestPalindromes(text);
 
-		InFile.close();
+		
 	}
 	catch (const char* msg) {
 		std::cerr << msg;
