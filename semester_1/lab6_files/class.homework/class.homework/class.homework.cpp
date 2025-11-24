@@ -1,37 +1,37 @@
 ﻿#include <iostream>
-long NOD(long a, long b) {
+int NOD(int a, int b) {
 	if (a < 0) { a = -a; }
 	if (b < 0) { b = -b; }
 	while (b != 0) {
-		long t = b;
+		int t = b;
 		b = a % b;
 		a = t;
 	}
 	if (a == 0) { return 1; }
 	return a;
 }
-long NOK(long a, long b) {
+int NOK(int a, int b) {
 	if (a == 0 || b == 0) {
 		return 0;
 	}
-	long nod = NOD(a, b);
+	int nod = NOD(a, b);
 	return (a / nod) * b;
 }
-
 class fraction {
 private:
-	long num_;
-	long den_;
+	int num_;
+	int den_;
 public:
 	fraction() {
 		num_ = 0;
 		den_ = 1;
 	}
-	fraction(long num) {
+	fraction(int num) {
 		num_ = num;
 		den_ = 1;
 	}
-	fraction(long num, long den) {
+	fraction(int num, int den) {
+		if (den == 0) throw "Error! the numerator cannot be 0";
 		num_ = num / NOD(num, den);
 		den_ = den / NOD(num, den);
 		if (den_ < 0) {
@@ -57,14 +57,40 @@ public:
 		long nok = NOK(drob.den_, den_);
 		return fraction(num_ * (nok / den_) - drob.num_ * (nok / drob.den_), nok);
 	}
-	void print() {
+	bool operator == (const fraction& drob) const {
+		return (num_ == drob.num_) && (den_ == drob.den_);
+	}
+	bool operator > (const fraction& drob) const {
+		int nok = NOK(den_, drob.den_);
+		return num_ * (nok / den_) > drob.num_ * (nok / drob.den_);
+	}
+	bool operator < (const fraction& drob) const {
+		int nok = NOK(den_, drob.den_);
+		return num_ * (nok / den_) < drob.num_ * (nok / drob.den_);
+	}
+	bool operator != (const fraction& drob) const {
+		return (num_ != drob.num_) && (den_ != drob.den_);
+	}
+	bool operator >= (const fraction& drob) const {
+		return (drob == *this) || (*this > drob);
+	}
+	bool operator <= (const fraction& drob) const {
+		return (drob == *this) || (*this < drob);
+	}
+	void print() const {
 		std::cout << num_ << "\n" << "-\n" << den_ << "\n";
 	}
 };
 int main() {
-	fraction drob(15,-5);
-	fraction dr(4, 3);
-	fraction rez = dr + drob;
-	rez.print();
+	try {
+		fraction drob1(15, -5);
+		fraction drob2(4, 3);
+		fraction rez = drob1 + drob2;
+		rez.print();
+		if (drob1 < rez) std::cout << "yes";
+	}
+	catch (const char* msg) {
+		std::cout << msg;
+	}
 	return 0;
 }
