@@ -2,15 +2,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
-struct MaxPalindromes {
-	std::string::size_type size = 0;
-	std::vector<std::string> vecStr, vecPal;
-};
-void CheckInFile(std::ifstream& file){
-	if (!file) {
+void CheckInFile(std::ifstream& filename){
+	if (!filename) {
 		throw"Error! InFile not open";
 	}
-	if (file.peek() == std::ifstream::traits_type::eof()) {
+	if (filename.peek() == std::ifstream::traits_type::eof()) {
 		throw"Error! File is empty";
 	}
 }
@@ -20,48 +16,62 @@ void PrintVector(const std::vector<std::string>& vector) {
 	}
 	std::cout << "\n";
 }
-std::vector<std::string> ReadDataFromFile(const std::string& inputFileName) {
-	std::ifstream in(inputFileName);
+std::vector<std::string> ReadDataFromFile(const std::string& inFileName) {
+	std::ifstream in(inFileName);
 	CheckInFile(in);
 	std::vector<std::string> lines;
 	std::string line;
-	while (std::getline(in, line)) {
+	while (getline(in, line)) {
 		lines.push_back(line);
 	}
+	in.close();
 	return lines;
 }
-std::string FindLengthPalindrome(const std::string& text) {
-	
-}
-MaxPalindromes CollectLongestPalindromes(std::vector<std::string> lines) {
-	MaxPalindromes result;
-	for (size_t i = 0; i < lines.size(); ++i) {
-		std::string palindrom = FindLengthPalindrome(lines[i]);
-		if (palindrom.size() > result.size) {
-			result.vecStr.clear();
-			result.size = palindrom.size();
-			result.vecStr.push_back(lines[i]);
-			result.vecPal.push_back(palindrom);
-		}
-		else {
-			if (palindrom.size() == result.size) {
-				result.vecStr.push_back(lines[i]);
-				result.vecPal.push_back(palindrom);
+std::vector<std::string> FindLengthNum(const std::vector<std::string>& text) {
+	int max = -1;
+	int x = 0;
+	std::vector<std::string> maxline;
+	for (size_t i = 0; i < text.size(); ++i) {
+		for (size_t j = 0; j < text[i].size(); ++j) {
+			x = 0;
+			while (isdigit(text[i][j])) {
+				++x;
+				++j;
+			}
+			if (x == max) {
+				maxline.push_back(text[i]);
+			}
+			if (x > max && x > 0) {
+				max = x;
+				maxline.clear();
+				maxline.push_back(text[i]);
 			}
 		}
 	}
-	if (result.size == 0) {
-		throw"There are no palindromic substrings in this file.";
+	if (maxline.empty()) { 
+		throw"Error! not find number in file";
 	}
-	return result;
+	return maxline;
+}
+void PrintAnswer(const std::string& outFileName, const std::vector<std::string>& text) {
+	std::ofstream out(outFileName);
+	if (!out) throw"Error! InFile not open";
+	out << "The first 10 lines containing the longest substring consisting only of numbers:";
+	for (size_t i = 0; i < text.size() && i < 10; ++i) {
+		out << "\n" << i + 1 << ": " << text[i];
+	}
+	out.close();
 }
 int main() {
 	try {
 		const std::string inputFileName = "input.txt";
 		std::vector<std::string>text = ReadDataFromFile(inputFileName);
-		MaxPalindromes result = CollectLongestPalindromes(text);
+		std::vector<std::string> lineWithMaxsNum = FindLengthNum(text);
 
-		
+		const std::string outFileName = "output.txt";
+		PrintAnswer(outFileName, lineWithMaxsNum);
+
+		std::cout << "The process is complete, the result is in your file out.txt";
 	}
 	catch (const char* msg) {
 		std::cerr << msg;
