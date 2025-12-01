@@ -38,7 +38,7 @@ std::vector<std::string> FindPalindromeWords(const std::string& text, const std:
 		}
 	}
 	if (palindromes.empty()) {
-		throw "there are no palindromic words in this string";
+		throw "There are no palindromic words in this string";
 	}
 	return palindromes;
 }
@@ -64,17 +64,18 @@ int main() {
 	try {
 		std::cout << "Enter your delimiters: ";
 		InputString(delimiters);
+
 		std::cout << "Enter words that are separated only by " << delimiters << "\n";
 		InputString(line);
+
 		std::vector<std::string> pWords = FindPalindromeWords(line, delimiters);
-		std::cout << "palindromes: \n";
-		PrintVector(pWords);
-		std::cout << "The longest palindromic words: \n";
 		std::string LongestPWords = FindLongestWord(pWords);
+
+		std::cout << "The longest palindromic words: \n";
 		std::cout << LongestPWords;
 	}
 	catch(const char* msg){
-		std::cerr << msg << "\n";
+		std::cerr << msg;
 	}
 	return 0;
 }
