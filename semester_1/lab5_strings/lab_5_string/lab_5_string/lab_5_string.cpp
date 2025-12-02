@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <string>
 #include <vector>
-void CheckEmptyString(std::string text) {
+void CheckEmptyString(std::string& text) {
 	if (text.empty()) {
 		throw "Error! The inputed string is empty.";
 	}
