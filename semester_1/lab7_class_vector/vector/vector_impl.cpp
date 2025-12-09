@@ -22,11 +22,8 @@ Vector::Vector(const Vector& other) :
 }
 Vector& Vector::operator=(const Vector& other) {
     if (this != &other) {
-        size_ = other.size_;
-        capacity_ = other.capacity_;
-        delete[] arr_;
-        arr_ = new int[capacity_];
-        std::copy(other.arr_, other.arr_ + size_, arr_);
+        Vector copy(other);
+        Swap(copy);
     }
     return *this;
 }
@@ -103,10 +100,10 @@ void Vector::Reserve(const size_t amount) {
 
 std::ostream& operator<<(std::ostream& out, const Vector& v){
     out << "[";
-    if (v.size_ > 0) {
-        out << v.arr_[0];
-        for (size_t i = 1; i < v.size_; ++i) {
-            out << ", " << v.arr_[i];
+    if (v.Size() > 0) {
+        out << v[0];
+        for (size_t i = 1; i < v.Size(); ++i) {
+            out << ", " << v[i];
         }
     }
     out << "]";

@@ -105,7 +105,8 @@ void InputMatrixChoice(int** matrix, int size, std::mt19937& gen) {
 element MaximumElementLowerRightTriangle(int** matrix, int size) {
 	element maxElTriangle;
 	maxElTriangle.item = matrix[0][size - 1];
-	maxElTriangle.row = 0, maxElTriangle.col = size - 1;
+	maxElTriangle.row = 0;
+	maxElTriangle.col = size - 1;
 	for (int i = 1; i < size; ++i) {
 		for (int j = size - 2; j >= size - i - 1; --j) {
 			if (matrix[i][j] > maxElTriangle.item) {

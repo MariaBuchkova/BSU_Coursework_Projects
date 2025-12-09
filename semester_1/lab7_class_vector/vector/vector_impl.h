@@ -30,7 +30,7 @@ public:
     void PopBack();
     void Clear();
     void Reserve(const size_t);
-    
-    friend std::ostream& operator<<(std::ostream&, const Vector&);
-
+   
 };
+
+std::ostream& operator<<(std::ostream&, const Vector&);

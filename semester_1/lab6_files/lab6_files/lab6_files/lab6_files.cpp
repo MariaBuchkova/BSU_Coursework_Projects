@@ -71,7 +71,7 @@ int main() {
 		const std::string outFileName = "output.txt";
 		PrintAnswer(outFileName, lineWithMaxsNum);
 
-		std::cout << "The process is complete, the result is in your file out.txt";
+		std::cout << "The process is complete, the result is in your file output.txt";
 	}
 	catch (const char* msg) {
 		std::cerr << msg;
