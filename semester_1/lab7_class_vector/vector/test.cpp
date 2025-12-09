@@ -50,10 +50,18 @@ TEST_CASE("Basic methods", "[vector]") {
     Check(b, std::vector<int>{6});
 }
 
+TEST_CASE("Access with []", "[vector]") {
+    const Vector a{1, 2, 3};
+    REQUIRE(a[0] == 1);
+    REQUIRE(a.operator[](1) == 2);
+    REQUIRE(a[2] == 3);
+    Check(a, std::vector<int>{1, 2, 3});
+}
+
 TEST_CASE("Modifications with []", "[vector]") {
     Vector a{3, 7, 8};
     a[0] = 1;
-    a[1] = 2;
+    a.operator[](1) = 2;
     a[2] = 3;
     Check(a, std::vector<int>{1, 2, 3});
 }
@@ -65,6 +73,14 @@ TEST_CASE("At method", "[vector]") {
     REQUIRE_THROWS_AS(a.At(10), std::out_of_range);
     a.At(2) = 3;
     Check(a, std::vector<int>{1, 2, 3});
+
+    const Vector b{1, 2, 3, 4, 5};
+    REQUIRE_THROWS_AS(b.At(10), std::out_of_range);
+    REQUIRE(b.At(0) == 1);
+    REQUIRE(b.At(1) == 2);
+    REQUIRE(b.At(2) == 3);
+    REQUIRE(b.At(3) == 4);
+    Check(b, std::vector<int>{1, 2, 3, 4, 5});
 }
 
 TEST_CASE("Reallocations", "[vector]") {
