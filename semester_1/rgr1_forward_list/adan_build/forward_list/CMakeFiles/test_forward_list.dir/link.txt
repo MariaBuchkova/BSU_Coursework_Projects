@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -Wextra -Wpedantic -g -g -fsanitize=address,undefined,leak -fno-sanitize-recover=all CMakeFiles/test_forward_list.dir/forward_list_impl.cpp.o CMakeFiles/test_forward_list.dir/test.cpp.o -o ../test_forward_list  ../libcontrib_catch_main.a 

@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/adan_build",
+  "command": "/usr/bin/c++  -I/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/contrib/catch  -Wall -Wextra -Wpedantic -g -g -fsanitize=address,undefined,leak -fno-sanitize-recover=all -std=gnu++17 -o CMakeFiles/contrib_catch_main.dir/contrib/catch/catch_main.cpp.o -c /mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/contrib/catch/catch_main.cpp",
+  "file": "/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/contrib/catch/catch_main.cpp",
+  "output": "CMakeFiles/contrib_catch_main.dir/contrib/catch/catch_main.cpp.o"
+},
+{
+  "directory": "/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/adan_build/forward_list",
+  "command": "/usr/bin/c++  -I/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/forward_list -I/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/contrib/catch  -Wall -Wextra -Wpedantic -g -g -fsanitize=address,undefined,leak -fno-sanitize-recover=all -std=gnu++17 -o CMakeFiles/test_forward_list.dir/forward_list_impl.cpp.o -c /mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/forward_list/forward_list_impl.cpp",
+  "file": "/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/forward_list/forward_list_impl.cpp",
+  "output": "forward_list/CMakeFiles/test_forward_list.dir/forward_list_impl.cpp.o"
+},
+{
+  "directory": "/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/adan_build/forward_list",
+  "command": "/usr/bin/c++  -I/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/forward_list -I/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/contrib/catch  -Wall -Wextra -Wpedantic -g -g -fsanitize=address,undefined,leak -fno-sanitize-recover=all -std=gnu++17 -o CMakeFiles/test_forward_list.dir/test.cpp.o -c /mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/forward_list/test.cpp",
+  "file": "/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/forward_list/test.cpp",
+  "output": "forward_list/CMakeFiles/test_forward_list.dir/test.cpp.o"
+}
+]

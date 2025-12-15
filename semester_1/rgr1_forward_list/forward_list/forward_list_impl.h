@@ -62,24 +62,22 @@ public:
     // methods for "ranged-based for loop"
     // 1) non-const version
     ForwardListIterator begin() {
-        if (begin_ == nullptr)
-            throw "Error! list is empty";
+        //if (begin_ == nullptr)
+            //throw "Error! list is empty";
         return ForwardListIterator(begin_);
     }
     ForwardListIterator end() {
-        if (end_ == nullptr)
-            throw "Error! list is empty";
-        return ForwardListIterator(end_);
+        return ForwardListIterator(nullptr);
     }
 
     // 2) const version
     // TODO: think about return type
     // (is it exactly ForwardListIterator?)
     ForwardListIterator begin() const {
-        // your code goes here
+        return ForwardListIterator(begin_);
     }
     ForwardListIterator end() const {
-        // your code goes here
+        return ForwardListIterator(nullptr);
     }
 
     // default constructor
@@ -130,6 +128,7 @@ public:
     
 private:
     Node* begin_ = nullptr;
-    Node* end_ = nullptr;
     size_t size_ = 0;
+
+    void PushBack(int32_t value);
 };

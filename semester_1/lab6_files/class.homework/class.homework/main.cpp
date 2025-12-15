@@ -2,7 +2,7 @@
 
 int main() {
 	try {
-		fraction drob1(15, -5);
+		fraction drob1(128, 108);
 		fraction drob2(3, 3);
 		fraction rez = drob1--;
 		rez.print();

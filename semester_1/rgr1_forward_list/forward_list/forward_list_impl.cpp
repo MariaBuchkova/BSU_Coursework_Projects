@@ -1,15 +1,135 @@
 #include "forward_list_impl.h"
 
-ForwardList::ForwardList(){}
-
-
-int main() {
-    try {
-        ForwardList l;
-        l.begin();
-
-    } catch (const char* msg) {
-        std::cout << "\n" << msg;
+void ForwardList::PushBack(int32_t value) {
+    Node* new_node = new Node(value);
+    if (begin_ == nullptr) {
+        begin_ = new_node;
+    } else {
+        Node* end = begin_;
+        while (end->next_ != nullptr) {
+            end = end->next_;
+        }
+        end->next_ = new_node;
     }
-    return 0;
+    ++size_;
+}
+
+
+ForwardList::ForwardList(){}
+ForwardList::ForwardList(const ForwardList& other){
+    Node* buf = other.begin_;
+    while (buf != nullptr) {
+        PushBack(buf->value_);
+        buf = buf->next_;
+    }
+}
+ForwardList::ForwardList(size_t count, int32_t value) : size_(0) {
+    for (size_t i = 0; i < count; ++i) {
+        PushBack(value);
+    }
+}
+ForwardList::ForwardList(std::initializer_list<int32_t> init) {
+    for (int32_t x : init) {
+        PushBack(x);
+    }
+}
+ForwardList::~ForwardList() { 
+    Clear();
+}
+ForwardList& ForwardList::operator=(const ForwardList& other) {
+    if (this != &other) {
+        Clear();
+        Node* buf = other.begin_;
+        while (buf != nullptr) {
+            PushBack(buf->value_);
+            buf = buf->next_;
+        }
+    }
+    return *this;
+}
+
+
+void ForwardList::PushFront(int32_t value) {
+    Node* p = new Node(value);
+    p->next_ = begin_;
+    begin_ = p;
+    ++size_;
+}
+void ForwardList::PopFront() {
+    if (begin_ == nullptr) {
+        throw "Error, list is empty";
+    }
+    Node* buf = begin_;
+    begin_ = begin_->next_;
+    delete buf;
+    --size_;
+}
+int32_t ForwardList::Front() const {
+    if (begin_ == nullptr) {
+        throw "Error, list is empty";
+    }
+    return begin_->value_;
+}
+
+void ForwardList::Clear() {
+    while (begin_ != nullptr) {
+        PopFront();
+    }
+}
+
+size_t ForwardList::Size() const {
+    return size_;
+}
+
+void ForwardList::Print(std::ostream& out) {
+    if (begin_ != nullptr) {
+
+        Node* buf = begin_;
+        out << buf->value_;
+        buf = buf->next_;
+        while (buf != nullptr) {
+            out << ' ' << buf->value_;
+            buf = buf->next_;
+        }
+    }
+}
+
+bool ForwardList::FindByValue(int32_t value) {
+    Node* buf = begin_;
+    while (buf != nullptr) {
+        if (buf->value_ == value) {
+            return true;
+        }
+        buf = buf->next_;
+    }
+    return false;
+}
+void ForwardList::Remove(int32_t value) {
+    // Удаляем все совпадения в начале списка
+    while (begin_ != nullptr && begin_->value_ == value) {
+        Node* temp = begin_;     // сохраняем текущую голову
+        begin_ = begin_->next_;  // сдвигаем голову на следующий узел
+        delete temp;
+        --size_;  // освобождаем память
+    }
+
+    // 2) Если список опустел — выходим
+    if (begin_ == nullptr)
+        return;
+    
+
+
+    // 3) Обходим оставшуюся часть
+    Node* curr = begin_;
+    while (curr->next_ != nullptr) {
+        if (curr->next_->value_ == value) {
+            Node* temp = curr->next_;   // узел для удаления
+            curr->next_ = temp->next_;  // перепрыгиваем через него
+            delete temp;     
+            --size_;  // освобождаем память
+            // curr остаётся на месте, чтобы проверить новый curr->next_
+        } else {
+            curr = curr->next_;  // двигаемся дальше
+        }
+    }
 }
