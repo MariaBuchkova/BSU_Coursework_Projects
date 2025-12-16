@@ -60,8 +60,10 @@ int main() {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         int b = EnterNum("\nEnter the number with which the vector elements will be compared: ");
+        //что-то непонятное с условием
         std::cout << "\nThe number of elements of the " << b << " is equal to: " << FindAndCount(number, b);
-       
+        //переделать
+
         ReplacingZero(number);
         PrintVector(number, "\nVector after replacing zeros: \n");
 

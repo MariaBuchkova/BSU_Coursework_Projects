@@ -28,8 +28,8 @@ ForwardList::ForwardList(size_t count, int32_t value) : size_(0) {
         PushBack(value);
     }
 }
-ForwardList::ForwardList(std::initializer_list<int32_t> init) {
-    for (int32_t x : init) {
+ForwardList::ForwardList(std::initializer_list<int32_t> list) {
+    for (int32_t x : list) {
         PushBack(x);
     }
 }
@@ -83,7 +83,6 @@ size_t ForwardList::Size() const {
 
 void ForwardList::Print(std::ostream& out) {
     if (begin_ != nullptr) {
-
         Node* buf = begin_;
         out << buf->value_;
         buf = buf->next_;
@@ -105,31 +104,26 @@ bool ForwardList::FindByValue(int32_t value) {
     return false;
 }
 void ForwardList::Remove(int32_t value) {
-    // Удаляем все совпадения в начале списка
+    
     while (begin_ != nullptr && begin_->value_ == value) {
-        Node* temp = begin_;     // сохраняем текущую голову
-        begin_ = begin_->next_;  // сдвигаем голову на следующий узел
+        Node* temp = begin_;
+        begin_ = begin_->next_;
         delete temp;
-        --size_;  // освобождаем память
+        --size_;
     }
 
-    // 2) Если список опустел — выходим
     if (begin_ == nullptr)
         return;
-    
 
-
-    // 3) Обходим оставшуюся часть
     Node* curr = begin_;
     while (curr->next_ != nullptr) {
         if (curr->next_->value_ == value) {
-            Node* temp = curr->next_;   // узел для удаления
-            curr->next_ = temp->next_;  // перепрыгиваем через него
+            Node* temp = curr->next_;
+            curr->next_ = temp->next_;
             delete temp;     
-            --size_;  // освобождаем память
-            // curr остаётся на месте, чтобы проверить новый curr->next_
+            --size_;
         } else {
-            curr = curr->next_;  // двигаемся дальше
+            curr = curr->next_;
         }
     }
 }

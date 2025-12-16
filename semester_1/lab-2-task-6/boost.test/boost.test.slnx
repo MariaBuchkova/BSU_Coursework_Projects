@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="boost.test/boost.test.vcxproj" Id="5604adaa-008b-4146-ae4a-5db701997bf7" />
+</Solution>
