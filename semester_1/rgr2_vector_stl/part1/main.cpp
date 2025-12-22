@@ -2,97 +2,111 @@
 #include<vector>
 #include <iomanip>
 #include <numeric>
-#include <limits>
+#include <string>
+#include <algorithm>
 
-void PrintVector(const std::vector<int>& v, const std::string& msg) {
-    std::cout << msg;
-    for (size_t i = 0; i < v.size(); ++i) {
-        std::cout << std::setw(4) << v[i];
+void PrintVector(const std::vector<int>& arr) {
+    size_t size = arr.size();
+    for (size_t i = 0; i < size; ++i) {
+        std::cout << std::setw(4) << arr[i];
     }
 }
-int EnterNum(const std::string& msg) {
-    std::cout << msg;
-    int a;
-    std::cin >> a;
-    if (!(std::cin)) {
-        throw "Error! This is not a number\n";
-    }
-    return a;
-}
-void IsNotZero(int x, const char* msg) { 
-    if (x == 0) { 
-        throw msg;
+void SizeNotZero(int size) { 
+    if (size == 0) { 
+        throw "Error size must be positive";
     } 
 }
-size_t FindAndCount (std::vector<int>& vec, int a){
-    size_t counter = 0;
-    for (size_t i = 0; i < vec.size(); ++i) {
-        if (vec[i] == a) {
-            ++counter;
+bool CheckBorder (int lower, int upper, size_t size){
+    if (upper >= size || lower < 0) {
+        return false;
+    }
+    return true;
+}
+void RemovingDuplicates(std::vector<int>& arr){
+    for (size_t i = 0; i < arr.size(); ++i) {
+        for (size_t j = i + 1; j < arr.size();) {
+            if (abs(arr[i]) == abs(arr[j])) {
+                arr.erase(arr.begin() + j);
+            }
+            else {
+                j++;
+            }
         }
     }
-    return counter;
+
 }
-void ReplacingZero(std::vector<int>& vec){
-    int arg = std::accumulate(vec.begin(), vec.end(), 0) / vec.size();
-    for (size_t i = 0; i < vec.size(); ++i) {
-        if (vec[i] == 0) { 
-            vec[i] = arg;
-        }
-    }
-}
+
 int main() {
     std::vector<int> number;
     int a;
     std::cout << "Enter element of vector: (for end enter not number)\n";
-    while (std::cin >> a) { 
+    while (std::cin >> a) {
         number.push_back(a);
     }
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     try {
-        IsNotZero(number.size(), "Error! Vector size is 0");
-        PrintVector(number, "Vector:\n");
-
-        std::cout << "\nSum of element vector = " << std::accumulate(number.begin(), number.end(), 0);
-
-        std::cout << "\nThe number of all elements: " << number.size();
-
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        int b = EnterNum("\nEnter the number with which the vector elements will be compared: ");
-        //что-то непонятное с условием
-        std::cout << "\nThe number of elements of the " << b << " is equal to: " << FindAndCount(number, b);
-        //переделать
-
-        ReplacingZero(number);
-        PrintVector(number, "\nVector after replacing zeros: \n");
-
-        int c = EnterNum("\nEnter lower limit: ");
-        if (c >= number.size()) {
-            throw "Error! Vector out of bounds";
-        }
-        if (c < 0) {
-            throw"Error! The number must not be negative";
-        }
-        int d = EnterNum("\nEnter upper limit: ");
-        if (d >= number.size()) {
-            throw "Error! Vector out of bounds";
-        }
-        if (d < 0) {
-            throw"Error! The number must not be negative";
-        }
-        if (c > d) { 
-            std::swap(c, d);
-        }
-        int arg = std::accumulate(number.begin() + c, number.begin() + d + 1, 0);
-        for (size_t i = 0; i < number.size(); ++i) {
-            number[i] += arg;
-        }
-        PrintVector(number, "Vector after adding the interval sum:\n");
+        SizeNotZero(number.size());
+        std::cout << "Vector:\n";
+        PrintVector(number);
     }
     catch (const char* msg) {
         std::cerr << msg;
         return 1;
     }
+
+    std::vector<int>::iterator begin = number.begin();
+    std::vector<int>::iterator end = number.end();
+
+    int64_t sum = std::accumulate(begin, end, 0);
+    int64_t size = number.size();
+
+    std::cout << "\nSum of element vector = " << sum;
+    std::cout << "\nThe number of all elements: " << size;
+
+    int value = 3;
+    std::cout << "\nThe number of elements of the " << value << "is equal to: "
+        << std::count_if(begin, end, [value](int x) {return x == value; });
+    std::cout << "\nThe number of elements is less than zero: "
+        << std::count_if(begin, end, [](int x) {return x < 0; });
+
+    int64_t arg = sum / size;
+    std::vector<int> first(number);
+    std::replace_if(first.begin(), first.end(), [](int x) {return x == 0; }, arg);
+    std::cout << "\nVector after replacing zeros: \n";
+    PrintVector(first);
+
+    int lower = 0;
+    int upper = 2;
+    std::vector<int> second(number);
+    if (!CheckBorder(lower, upper, size)) {
+        std::cout << "\nThe interval[" <<
+            lower << "; " << upper << "] extends beyond the vector boundaries";
+    }
+    else {
+        int64_t sumInterwal = std::accumulate(begin + lower, begin + upper + 1, 0);
+        for (size_t i = 0; i < size; ++i) {
+            second[i] += sumInterwal;
+        }
+        std::cout << "\nInterval sum[" << lower << "; " << upper << "]: " << sumInterwal;
+        std::cout << "\nVector after adding the interval ["
+            << lower << "; " << upper << "] sum:\n";
+        PrintVector(second);
+    }
+
+    std::vector<int> third(number);
+    int min = *std::min_element(begin, end);
+    int max = *std::max_element(begin, end);
+    int difference = max - min;
+    std::replace_if(third.begin(), third.end(), [](int x) {return abs(x) % 2 == 0; }, difference);
+    std::cout << "\nVector after changing elements with even modulus:\n";
+    PrintVector(third);
+
+    std::vector<int> fourth(number);
+    RemovingDuplicates(fourth);
+    std::cout << "\nVector after removing duplicates: \n";
+    PrintVector(fourth);
+
     return 0;
 }
