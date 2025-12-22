@@ -1,5 +1,8 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "time_utility.h"
 
+#include <stdexcept>
 #include <cassert>
 #include <chrono>
 #include <iostream>
