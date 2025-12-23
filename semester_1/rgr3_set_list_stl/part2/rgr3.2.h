@@ -36,6 +36,8 @@ public:
 	void deleteBook(const std::string& title);
 	void searchByTitle(const std::string& title) const;
 	void searchByAuthor(const std::string& surname) const;
+	void loadFromFile(const std::string& filename);
+
 
 private:
 	std::list<Book> library;

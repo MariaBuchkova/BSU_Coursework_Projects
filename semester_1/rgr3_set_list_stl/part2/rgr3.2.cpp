@@ -1,5 +1,8 @@
 #include "rgr3.2.h"
 #include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
 
 Library::Book::Author::Author(const std::string& surname, const std::string& name, const std::string& patronymic) : 
 	surname_(surname), name_(name), patronymic_(patronymic) {}
@@ -59,5 +62,42 @@ void Library::searchByAuthor(const std::string& surname) const {
 				break; 
 			}
 		}
+	}
+}
+
+void Library::loadFromFile(const std::string& filename) {
+	std::ifstream infile(filename);
+	if (!infile) {
+		std::cerr << "Ошибка открытия файла: " << filename << '\n';
+		return;
+	}
+	if (infile.peek() == std::ifstream::traits_type::eof()) {
+		std::cerr << "Ошибка файл  " << filename << " пустой" << '\n';
+		return;
+	}
+	std::string line;
+	while (std::getline(infile, line)) {
+		if (line.empty()) continue;
+		std::stringstream ss(line);
+		std::string buffer;
+		std::getline(ss, buffer, ';');
+		int udk = std::stoi(buffer);
+		std::string title;
+		std::getline(ss, title, ';');
+		std::getline(ss, buffer, ';');
+		size_t year = std::stoul(buffer);
+		std::string authors_str; 
+		std::getline(ss, authors_str);
+		std::list<Book::Author> authors; 
+		std::stringstream sa(authors_str);
+		std::string author; 
+		while (std::getline(sa, author, ',')) {
+			std::stringstream a(author); 
+			std::string surname, name, patronymic;
+			a >> surname >> name >> patronymic;
+			authors.emplace_back(surname, name, patronymic); 
+		} 
+		Book book(udk, authors, title, year);
+		addBook(book);
 	}
 }
