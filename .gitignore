@@ -84,3 +84,5 @@ bin/
 *.iml
 
 .DS_Store
+
+Properties/
