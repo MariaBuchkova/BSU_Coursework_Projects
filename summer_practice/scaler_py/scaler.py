@@ -1,6 +1,6 @@
 """
-    python main.py https://ru.wikipedia.org
-    python main.py https://ru.wikipedia.org --tag p --output result.txt
+    python scaler.py https://ru.wikipedia.org
+    python scaler.py https://ru.wikipedia.org --tag p --output result.txt
 """
 
 import argparse
