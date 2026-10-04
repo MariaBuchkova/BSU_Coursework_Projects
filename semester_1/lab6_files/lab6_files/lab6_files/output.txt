@@ -1,0 +1,4 @@
+The first 10 lines containing the longest substring consisting only of numbers:
+1: 123
+2: llll777
+3: llll999djfhf

@@ -1,0 +1,7 @@
+/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/adan_build/CMakeFiles/contrib_catch_main.dir
+/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/adan_build/CMakeFiles/test-all.dir
+/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/adan_build/CMakeFiles/edit_cache.dir
+/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/adan_build/CMakeFiles/rebuild_cache.dir
+/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/adan_build/forward_list/CMakeFiles/test_forward_list.dir
+/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/adan_build/forward_list/CMakeFiles/edit_cache.dir
+/mnt/c/users/admin/11_BychkovaMA_fpmi_cpp_labs/semester_1/rgr1_forward_list/adan_build/forward_list/CMakeFiles/rebuild_cache.dir
