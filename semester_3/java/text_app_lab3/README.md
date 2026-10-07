@@ -47,10 +47,10 @@ In the counting test, the text has 3 sentences, 7 words (`Hello`, `world`, `Эт
 5. `insertSentence` accepts positions from `0` to `size` (`size` means insert at the end). `removeSentence` and `getSentence` accept positions from `0` to `size - 1`.
 6. `textApp` calls every constructor and method with prepared data, prints the results, and then deliberately triggers error situations inside `try/catch` blocks, printing the exception messages.
 
-## Error handling
 
-- `IllegalArgumentException` is thrown for a `null` argument, or for an empty or blank sentence, string or list element.
-- `IndexOutOfBoundsException` is thrown for an invalid index.
-- `assert` checks the class invariant: every stored sentence is non-empty and ends with `.`, `!` or `?`. It is used for internal consistency checks and works only when the JVM is started with `-ea`, which the Makefile does.
-
-If an operation cannot be performed, the class does not change its state and the program prints a message with the reason instead of a result.
+ ## How to run
+To run this Java project on Windows, you must use a Unix-like terminal environment such as WSL or Git Bash. First, ensure you download and install a Java compiler (JDK) directly within your chosen environment. Once your setup is complete, execute 
+``` WSL 
+make build 
+make run
+```

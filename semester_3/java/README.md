@@ -12,11 +12,13 @@ No featured works yet.
 
 ## Other works
 
-| **Project** | **Description** |
-| --- | --- |
-| [**row_mode_sub_lab1**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/java/row_mode_sub_lab1) | Matrix processing and finding the most frequently occurring element. |
-| [**case_swap_lab2**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/java/case_swap_lab2) | String processing and changing the case of characters. |
-| [**text_app_lab3**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/java/text_app)| Java class for working with text as a sequence of sentences. |
+| **Project**                                                                                                    | **Description**                                                      |
+|----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
+| [**row_mode_sub_lab1**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/java/row_mode_sub_lab1)   | Matrix processing and finding the most frequently occurring element. |
+| [**case_swap_lab2**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/java/case_swap_lab2)         | String processing and changing the case of characters.               |
+| [**text_app_lab3**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/java/text_app_lab3)           | Java class for working with text as a sequence of sentences.         |
+| [**class_scedule_lab4**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/java/class_scedule_lab4) | Array-based Java schedule with add, insert, replace, remove.         |
+
 
 ## Future works
 
