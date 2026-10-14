@@ -41,5 +41,5 @@ This means that there is no need to explicitly construct the tree — the set ha
 
 ### Implementation
 
-- [**C++ implementation**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/algorithms/task00/task00.cpp)
-- [**Python implementation**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/algorithms/task00/task00.py)
+- [**C++ implementation**](https://github.com/MariaBuchkova/BSU_Coursework_Projects/blob/main/semester_3/algorithms/dynamic_programming/0_task00/task00.cpp)
+- [**Python implementation**](https://github.com/MariaBuchkova/BSU_Coursework_Projects/blob/main/semester_3/algorithms/dynamic_programming/0_task00/task00.py)

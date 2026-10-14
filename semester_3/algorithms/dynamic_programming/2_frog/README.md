@@ -44,5 +44,5 @@ dp[i] = max(dp[i - 2], dp[i - 3]) + a[i]
 
 ### Implementation
 
-- [**C++   implementation**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/algorithms/dynamic_programming/frog/frog.cpp)
-- [**Python   implementation**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/algorithms/dynamic_programming/frog/frog.py)
+- [**C++   implementation**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/algorithms/dynamic_programming/2_frog/frog.cpp)
+- [**Python   implementation**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/algorithms/dynamic_programming/2_frog/frog.py)

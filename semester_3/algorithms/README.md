@@ -2,9 +2,9 @@
 
 University practical works and laboratory assignments in **Algorithms** completed as part of the university curriculum.
 
-This section contains practical tasks focused on algorithm design, implementation, and analysis. The works include problem statements and their solutions implemented in **C++** and **Python**, allowing the same algorithmic tasks to be explored using different programming languages.
+This section contains practical tasks focused on algorithm design, implementation, and analysis. The assignments cover different algorithmic topics, including searching, dynamic programming, and other fundamental techniques.
 
-Each work contains the original problem statement and an implementation of the corresponding solution, with the projects organized as separate assignments.
+Each topic is organized in a separate directory containing the corresponding tasks and their implementations.
 
 ## Featured works
 
@@ -12,11 +12,10 @@ No featured works yet.
 
 ## Other works
 
-| **Project** | **Description** |
+| **Topic** | **Description** |
 | --- | --- |
-| [**binary_search**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/algorithms/binary_search) | Algorithmic task focused on binary search. |
-| [**frog**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/algorithms/frog) | Algorithmic problem involving a frog and movement between positions. |
-| [**task00**](https://github.com/maria11-lab/bsu_repo/tree/main/semester_3/algorithms/task00) | Introductory algorithmic problem with solutions implemented in C++ and Python. |
+| [**dynamic_programming**](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/dynamic_programming) | Problems involving dynamic programming, including sequence optimization. |
+| [**search_trees**](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/search_trees/) | Practical tasks related to search trees and tree-based algorithms. |
 
 ## Technologies
 
