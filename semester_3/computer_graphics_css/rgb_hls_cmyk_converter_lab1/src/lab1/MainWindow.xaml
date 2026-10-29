@@ -20,7 +20,6 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
 
-        <!-- Карточка модели -->
         <Style x:Key="Card" TargetType="Border">
             <Setter Property="Background" Value="White" />
             <Setter Property="BorderBrush" Value="#E3E6EA" />
@@ -74,41 +73,46 @@
 
     <DockPanel Margin="14">
 
-        <!-- ===================== Заголовок и предпросмотр ===================== -->
         <Grid DockPanel.Dock="Top" Margin="6,2,6,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+            <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
                 <TextBlock Text="Цветовые модели" FontSize="24" FontWeight="Bold" Foreground="#2D3436" />
                 <TextBlock Text="RGB ↔ HLS ↔ CMYK"
                            FontSize="13" Foreground="#95A5A6" Margin="0,2,0,0" />
             </StackPanel>
 
-            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                <Button Content="Выбрать из палитры…" x:Name="BtnOpenPalette"
-                        Padding="16,8" Margin="0,0,14,0"
-                        Background="#6C5CE7" Foreground="White" BorderThickness="0"
-                        FontWeight="SemiBold" Cursor="Hand">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="8" />
-                        </Style>
-                    </Button.Resources>
-                </Button>
-
-                <Border Width="64" Height="52" CornerRadius="10" BorderBrush="#DFE3E8" BorderThickness="1"
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Текущий цвет"
+                           FontSize="12" FontWeight="SemiBold" Foreground="#636E72"
+                           HorizontalAlignment="Center" Margin="0,0,0,6" />
+                <Border Width="96" Height="52" CornerRadius="10"
+                        BorderBrush="#DFE3E8" BorderThickness="1"
                         Background="{Binding PreviewBrush}">
                     <Border.Effect>
                         <DropShadowEffect Color="#B0B7C3" Direction="270" ShadowDepth="1" BlurRadius="6" Opacity="0.3" />
                     </Border.Effect>
                 </Border>
             </StackPanel>
+
+            <Button Grid.Column="2" x:Name="BtnOpenPalette"
+                    Content="Выбрать из палитры…"
+                    HorizontalAlignment="Right" VerticalAlignment="Center"
+                    Padding="18,10" FontSize="14"
+                    Background="#6C5CE7" Foreground="White" BorderThickness="0"
+                    FontWeight="SemiBold" Cursor="Hand">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10" />
+                    </Style>
+                </Button.Resources>
+            </Button>
         </Grid>
 
-        <!-- ===================== Три модели ===================== -->
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

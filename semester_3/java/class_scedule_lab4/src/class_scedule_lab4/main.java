@@ -2,8 +2,6 @@ package class_scedule_lab4;
 
 import java.time.LocalTime;
 
-//Запускать с ключом -ea.
-
 public class main {
     private static ScheduleItem item(String s, String e, String place, String comment) {
         return new ScheduleItem(LocalTime.parse(s), LocalTime.parse(e), place, comment);
