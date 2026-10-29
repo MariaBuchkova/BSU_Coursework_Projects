@@ -1,0 +1,66 @@
+<Window x:Class="image_threshold_lab3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="image treshold" Height="650" Width="1100">
+    <DockPanel>
+        <TextBlock x:Name="Status" DockPanel.Dock="Bottom" Margin="8" Text="Откройте изображение"/>
+
+        <StackPanel DockPanel.Dock="Left" Width="290" Margin="8">
+            <Button Content="Открыть..." Click="Open_Click" Padding="4" Margin="0,0,0,4"/>
+            <Button Content="Результат → исходное" Click="Promote_Click" Padding="4" Margin="0,0,0,4"/>
+            <Button Content="Сохранить результат..." Click="Save_Click" Padding="4"/>
+
+            <TabControl x:Name="Tabs" Margin="0,10,0,0" SelectionChanged="Tabs_SelectionChanged">
+                <TabItem Header="Поэлементные">
+                    <StackPanel Margin="6">
+                        <ComboBox x:Name="PointOp" SelectedIndex="0" SelectionChanged="PointOp_SelectionChanged">
+                            <ComboBoxItem Tag="bright" Content="Яркость"/>
+                            <ComboBoxItem Tag="gamma" Content="Гамма"/>
+                            <ComboBoxItem Tag="neg" Content="Негатив"/>
+                        </ComboBox>
+                        <StackPanel x:Name="PointParamPanel" Margin="0,8,0,0">
+                            <TextBlock Text="{Binding Value, ElementName=PointParam, StringFormat='Параметр: {0:F0}'}"/>
+                            <Slider x:Name="PointParam" Minimum="-100" Maximum="100" Value="20"/>
+                        </StackPanel>
+                        <Button Content="Применить" Click="ApplyPoint_Click" Padding="4" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </TabItem>
+
+                <TabItem Header="Контраст">
+                    <StackPanel Margin="6">
+                        <TextBlock Text="Линейное контрастирование"/>
+                        <TextBlock Margin="0,8,0,0" Text="{Binding Value, ElementName=CutPct, StringFormat='Отсечь с краёв, %: {0:F1}'}"/>
+                        <Slider x:Name="CutPct" Minimum="0" Maximum="10" Value="1"/>
+                        <Button Content="Применить" Click="ApplyContrast_Click" Padding="4" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </TabItem>
+
+                <TabItem Header="Порог">
+                    <StackPanel Margin="6">
+                        <ComboBox x:Name="ThrMethod" SelectedIndex="0" SelectionChanged="ThrMethod_SelectionChanged">
+                            <ComboBoxItem Tag="otsu" Content="Глобальный: Оцу"/>
+                            <ComboBoxItem Tag="iter" Content="Глобальный: итеративный"/>
+                            <ComboBoxItem Tag="adapt" Content="Адаптивный (среднее в окне)"/>
+                        </ComboBox>
+                        <StackPanel x:Name="AdaptPanel" IsEnabled="False" Margin="0,8,0,0">
+                            <TextBlock Text="{Binding Value, ElementName=Radius, StringFormat='Радиус окна: {0:F0}'}"/>
+                            <Slider x:Name="Radius" Minimum="1" Maximum="50" Value="10" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                            <TextBlock Text="{Binding Value, ElementName=CParam, StringFormat='Константа C: {0:F0}'}"/>
+                            <Slider x:Name="CParam" Minimum="0" Maximum="40" Value="8" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                        </StackPanel>
+                        <Button Content="Применить" Click="ApplyThreshold_Click" Padding="4" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </StackPanel>
+
+        <Grid Margin="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image x:Name="ImgBefore" Grid.Column="0" Margin="4" Stretch="Uniform"/>
+            <Image x:Name="ImgAfter" Grid.Column="1" Margin="4" Stretch="Uniform"/>
+        </Grid>
+    </DockPanel>
+</Window>
