@@ -16,6 +16,7 @@ No featured works yet.
 | --- | --- |
 | [**dynamic_programming**](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/dynamic_programming) | Problems involving dynamic programming, including sequence optimization. |
 | [**search_trees**](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/search_trees/) | Practical tasks related to search trees and tree-based algorithms. |
+| [**special_ds**](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/special_ds) | Practical tasks on special data structures, including heaps and Huffman coding. |
 
 ## Technologies
 

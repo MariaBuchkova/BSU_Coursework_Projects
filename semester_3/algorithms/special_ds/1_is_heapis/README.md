@@ -51,5 +51,5 @@ The shape of a complete binary tree is fully determined by the array, so it is e
 
 ### Implementation
 
-- [**C++ implementation**](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/special_ds/1_is_heap/is_heap.cpp)
+- [**C++ implementation**](https://github.com/MariaBuchkova/BSU_Coursework_Projects/blob/main/semester_3/algorithms/special_ds/1_is_heapis/is_heap.cpp)
 - **Python implementation** — coming soon
