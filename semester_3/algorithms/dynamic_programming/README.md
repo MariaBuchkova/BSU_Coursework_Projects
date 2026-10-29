@@ -4,21 +4,33 @@ A collection of practical assignments focused on **Dynamic Programming** as part
 
 ## Future Work
 
-### [3_units_two_part](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/dynamic_programming/3_units_two_part)
+### 🔹 [tape_main](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/dynamic_programming/tape_main)
 
-The task is to find the number of binary strings of length \(n\) containing exactly \(k\) ones. Two approaches are implemented:
+**Task:** on a tape of \(n\) cells, two players take turns cutting off one of the end cells and taking its number. Find the maximum score the first player can guarantee against any play of the opponent.
 
-- **Dynamic Programming** — using Pascal's triangle to calculate the number of valid arrangements.
-- **Binary Exponentiation** — calculating the binomial coefficient using factorials and modular inverses.
+**Approach:**
+- **Interval Dynamic Programming (minimax)** — for every segment, store the best score when the player moves first and the score he gets when the opponent moves first. Complexity: O(n²).
 
-### [6_palindromic_subsequence](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/dynamic_programming/6_palindromic_subsequence)
+### 🔹 [3_units_two_part](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/dynamic_programming/3_units_two_part)
 
-The task is to find the **Longest Palindromic Subsequence (LPS)** in a given sequence. A subsequence preserves the relative order of elements, and a palindrome reads the same forward and backward. The solution will use dynamic programming to determine the maximum possible length.
+**Task:** count the binary strings of length \(n\) that contain exactly \(k\) ones.
+
+**Approaches:**
+- **Dynamic Programming** — build Pascal's triangle to get the number of valid arrangements.
+- **Binary Exponentiation** — compute the binomial coefficient via factorials and modular inverses.
+
+### 🔹 [6_palindromic_subsequence](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/dynamic_programming/6_palindromic_subsequence)
+
+**Task:** find the **Longest Palindromic Subsequence (LPS)** of a given sequence. A subsequence keeps the relative order of elements, and a palindrome reads the same forward and backward.
+
+**Approach:**
+- **Dynamic Programming** over segments to determine the maximum possible length.
 
 ## Assignments
 
 | **Task** | **Description** |
 | --- | --- |
+| [tape_main](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/dynamic_programming/tape_main) | Finding the maximum score the first player can guarantee in a two-player game on a tape using interval dynamic programming. |
 | [0_task00](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/dynamic_programming/0_task00) | Introductory assignment covering the fundamentals of algorithmic problem solving. |
 | [1_binary_search](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/dynamic_programming/1_binary_search) | Searching for a target element in a sorted sequence using binary search. |
 | [2_frog](https://github.com/MariaBuchkova/BSU_Coursework_Projects/tree/main/semester_3/algorithms/dynamic_programming/2_frog) | Finding an optimal path for a frog while minimizing the total cost. |
